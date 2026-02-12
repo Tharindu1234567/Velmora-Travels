@@ -1,142 +1,139 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import styles from "./Hero.module.css";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPlay, FaLongArrowAltRight, FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa"; // Assuming react-icons is installed
 
-const slides = [
-    {
-        id: 1,
-        image: "/hero-1.png",
-        subtitle: "ELEVATE YOUR TRAVEL JOURNEY",
-        title: "Experience\nThe Magic Of\nTravel !",
-    },
-    {
-        id: 2,
-        image: "/hero-2.png",
-        subtitle: "MAGICAL WILDLIFE SUNSETS",
-        title: "Witness\nThe Golden\nElephant Trails",
-    },
-];
+import { heroSlides as slides } from "../data/heroData";
 
 export default function Hero() {
-    const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-        }, 3000); // auto-change every 3 seconds as requested
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 5000); // Changed to 5s for better UX or keep 3s
 
-        return () => clearInterval(interval);
-    }, []);
+    return () => clearInterval(interval);
+  }, []);
 
-    return (
-        <div className={styles.heroWrapper}>
-        <section className={styles.heroContainer}>
-            {/* Background Images */}
-            {slides.map((slide, index) => (
-                <div
-                    key={slide.id}
-                    className={`${styles.backgroundImage} ${index === currentIndex ? styles.active : ""}`}
-                    style={{
-                        backgroundImage: `url(${slide.image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                    }}
-                    aria-hidden="true"
-                />
-            ))}
+  return (
+    <div className="w-full h-screen relative flex items-center justify-center overflow-hidden px-4 md:px-10 py-5">
+       <div className="relative w-full h-[85vh] rounded-[40px] overflow-hidden shadow-2xl flex flex-col justify-center">
+        
+        {/* Background Images with Fade Transition */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: `url(${slides[currentIndex].image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+        </AnimatePresence>
+        
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/60 z-10" />
 
-            <div className={styles.overlay} />
+        {/* Removed internal Navbar as per clean up */}
 
-            {/* Navbar */}
-            <nav className={styles.navbar}>
-                <div className={styles.logo}>Tourpoint</div>
-                <div className={styles.navLinks}>
-                    <a href="#" className={styles.activeLink}>Home</a>
-                    <a href="#">Tour</a>
-                    <a href="#">About</a>
-                    <a href="#">Packages</a>
-                    <a href="#">Booking</a>
-                </div>
-                <button className={styles.bookTripBtn}>Book Trip</button>
-            </nav>
+        <div className="relative z-20 flex flex-col md:flex-row items-end justify-between px-8 md:px-16 pb-16 h-full w-full">
+            
+            {/* Left Indicators (Desktop only) */}
+            <div className="hidden md:flex flex-col items-center gap-6 mb-8 mr-12 self-center">
+                {slides.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentIndex(index)}
+                        className={`w-10 h-10 rounded-full border border-white/50 flex items-center justify-center text-sm transition-all duration-300 ${
+                            index === currentIndex ? "bg-white text-black border-white scale-110" : "text-white hover:bg-white/20"
+                        }`}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+                <div className="w-[1px] h-32 bg-white/30 mt-4"></div>
+            </div>
 
-            <div className={styles.mainContent}>
-                {/* Left Indicators */}
-                <div className={styles.leftIndicators}>
-                    {slides.map((_, index) => (
-                        <div
-                            key={index}
-                            className={`${styles.indicator} ${index === currentIndex ? styles.activeIndicator : ""}`}
-                            onClick={() => setCurrentIndex(index)}
-                        >
-                            {index + 1}
+            {/* Main Text Content */}
+            <div className="flex-1 max-w-2xl mb-10 md:mb-0">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-left"
+                    >
+                        <p className="text-white/90 text-sm md:text-base tracking-[2px] font-medium uppercase mb-4">
+                            {slides[currentIndex].subtitle}
+                        </p>
+                        <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight whitespace-pre-line mb-8">
+                            {slides[currentIndex].title}
+                        </h1>
+
+                        <div className="flex items-center gap-6">
+                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-semibold transition-transform hover:scale-105">
+                                Book a Trip Now
+                            </button>
+                            <button className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-blue-600 hover:scale-110 transition-transform">
+                                <FaPlay className="ml-1" size={14} />
+                            </button>
                         </div>
-                    ))}
-                    <div className={styles.verticalLine}></div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
+            {/* Glass Card (Bottom Right) */}
+            <div className="hidden lg:flex absolute right-0 bottom-0 bg-white w-[400px] h-[200px] rounded-tl-[60px] p-8 flex-col justify-between shadow-lg">
+                <div className="flex justify-between items-center w-full">
+                    <span className="text-xl font-bold text-gray-900">Know More</span>
+                    <FaLongArrowAltRight className="text-gray-500 text-xl" />
                 </div>
-
-                {/* Text Content */}
-                <div className={styles.textContent}>
-                    {slides.map((slide, index) => (
-                        <div
-                            key={slide.id}
-                            className={`${styles.slideText} ${index === currentIndex ? styles.activeSlideText : ""}`}
-                        >
-                            <div className={styles.subtitle}>{slide.subtitle}</div>
-                            <h1 className={styles.title}>{slide.title}</h1>
-                        </div>
-                    ))}
-
-                    <div className={styles.controls}>
-                        <button className={styles.ctaButton}>Book a Trip Now</button>
-                        <button className={styles.playButton}>
-                            <span className={styles.playIcon}>◐</span>
-                        </button>
+                
+                <div className="flex items-center gap-4 mt-4">
+                     <div className="flex -space-x-3">
+                        <div className="w-12 h-12 rounded-full border-2 border-white bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop)' }}></div>
+                        <div className="w-12 h-12 rounded-full border-2 border-white bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop)' }}></div>
+                        <div className="w-12 h-12 rounded-full border-2 border-white bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop)' }}></div>
                     </div>
-                </div>
-
-                {/* Glass Card */}
-                <div className={styles.glassCard}>
-                    <div className={styles.cardHeader}>
-                        <span className={styles.knowMore}>Know More</span>
-                        <span className={styles.arrowIcon}>→</span>
-                    </div>
-                    <div className={styles.cardContent}>
-                        <div className={styles.avatarGroup}>
-                            <div className={styles.avatar} style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop)' }}></div>
-                            <div className={styles.avatar} style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop)' }}></div>
-                            <div className={styles.avatar} style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop)' }}></div>
-                        </div>
-                        <div className={styles.cardText}>
-                            <strong>Awesome Places</strong>
-                            <p>Discover The Sri Lanka one Adventure At a Time!</p>
-                        </div>
+                    <div>
+                        <strong className="block text-gray-900">Awesome Places</strong>
+                        <p className="text-gray-500 text-xs">Discover The Sri Lanka one Adventure At a Time!</p>
                     </div>
                 </div>
             </div>
 
-            {/* Bottom Brand Logos */}
-            <div className={styles.bottomBar}>
-                <div className={styles.socialFollow}>
-                    <span>Follow</span>
-                    <div className={styles.socialIcons}>
-                        <span>𝕏</span>
-                        <span>f</span>
-                        <span>f</span>
-                    </div>
-                </div>
-                <div className={styles.brandLogos}>
-                    <span>airbnb</span>
-                    <span>Booking.com</span>
-                    <span>Tripadvisor.com</span>
-                    <span>Trivago</span>
-                    <span>Expedia</span>
-                </div>
-            </div>
-
-        </section>
         </div>
-    );
+
+        {/* Bottom Bar (Social & Brands) */}
+        <div className="absolute bottom-8 left-16 right-16 z-30 hidden md:flex justify-between items-center text-white/80 text-sm font-medium">
+             <div className="flex items-center gap-6">
+                <span>Follow</span>
+                <div className="flex gap-4">
+                    <FaTwitter className="hover:text-white cursor-pointer" />
+                    <FaFacebookF className="hover:text-white cursor-pointer" />
+                    <FaInstagram className="hover:text-white cursor-pointer" />
+                </div>
+             </div>
+             
+             <div className="flex gap-8 opacity-70">
+                <span>airbnb</span>
+                <span>Booking.com</span>
+                <span>Tripadvisor</span>
+                <span>Trivago</span>
+                <span>Expedia</span>
+             </div>
+        </div>
+
+      </div>
+    </div>
+  );
 }
