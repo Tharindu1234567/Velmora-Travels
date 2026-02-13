@@ -23,7 +23,7 @@ const gradients = {
 export default function Footer() {
   return (
     <footer className=" w-full mb-0 md:mb-5 overflow-hidden">
-      <div className="mx-5 bg-gray-50 rounded-none md:rounded-[30px] px-6 sm:px-8 lg:px-12 py-5 sm:py-12 md:py-5 md:pt-6 ">
+      <div className="mx-5 bg-gray-50 rounded-none md:rounded-[20px] px-6 sm:px-8 lg:px-12 py-5 sm:py-12 md:py-5 md:pt-6 ">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {/* Brand Section */}
