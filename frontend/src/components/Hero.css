@@ -1,0 +1,49 @@
+.m {
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    width: 31px;
+    aspect-ratio: 1;
+    background: radial-gradient(circle 31px at top left, #0000 98%, #fff) top left;
+  }
+  &::before {
+    bottom: -1px;
+    left: -31px;
+  }
+  &::after {
+    top: -31px;
+    left: 69px;
+  }
+}
+
+.m2 {
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    width: 31px;
+    aspect-ratio: 1;
+    background: radial-gradient(circle 31px at top left, #0000 98%, #fff) top left;
+  }
+
+  &::after {
+    top: -31px;
+    left: 269px;
+  }
+}
+
+.floating-card {
+  &::after {
+    position: absolute;
+    content: "";
+    width: 24px;
+    aspect-ratio: 1;
+    background: radial-gradient(circle 24px at top left, #0000 98%, rgb(243, 244, 246)) top left;
+  }
+
+  &::after {
+    top: 38px;
+    left: 80px;
+  }
+}
