@@ -10,6 +10,7 @@ export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(galleryImages[0]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [showDetails, setShowDetails] = useState(true);
   const imagesPerPage = 8; // 2x4 grid
 
   // Get unique categories
@@ -65,10 +66,10 @@ export default function Gallery() {
   }, [selectedImage, filteredImages, currentPage, imagesPerPage]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col gap-10">
+    <div className="min-h-screen bg-white flex flex-col ">
       {/* Navigation */}
       <Header activeLink="gallery" />
-      <section className="relative inset-0 m-3 sm:m-4 md:m-6 rounded-[15px] overflow-hidden overflow-y-auto lg:overflow-y-hidden">
+      <section className="relative inset-0 mx-3 sm:mx-4 md:mx-10  rounded-[30px] overflow-hidden overflow-y-auto lg:overflow-y-hidden">
         {/* Blurred Background - Full Screen */}
         <motion.div
           key={selectedImage.id + "-bg"}
@@ -85,62 +86,62 @@ export default function Gallery() {
 
         {/* Content Container */}
         <div className="relative h-full flex flex-col lg:flex-row gap-0 overflow-y-auto lg:overflow-y-hidden scroll-smooth">
-          {/* Left Side - Text Content */}
-          <motion.div
-            key={selectedImage.id + "-content"}
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col justify-center space-y-3 sm:space-y-4 md:space-y-6 z-50 px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-5 md:py-6 w-full lg:w-[350px] xl:w-[450px] 2xl:w-[500px]"
-          >
-            <motion.div
-              key={selectedImage.id + "-category"}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-block"
-            >
-              <span className="inline-block px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 bg-white backdrop-blur-sm rounded-full text-gray-700 font-medium text-xs sm:text-sm shadow-lg">
-                {selectedImage.category}
-              </span>
-            </motion.div>
-
-            <motion.h1
-              key={selectedImage.id + "-title"}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white leading-tight"
-            >
-              {selectedImage.title}
-            </motion.h1>
-
-            <motion.p
-              key={selectedImage.id + "-desc"}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 leading-relaxed line-clamp-4 md:line-clamp-none"
-            >
-              {selectedImage.description}
-            </motion.p>
-          </motion.div>
-
           {/* Center - Preview Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-6 py-3 sm:py-6 md:py-10 min-h-[250px] sm:min-h-[350px] md:min-h-[450px] lg:min-h-0"
+            className="flex-1 flex lg:ml-4 items-center px-4 sm:px-6 md:px-6 py-4 sm:py-6 md:py-10 min-h-[250px] sm:min-h-[350px] md:min-h-full  lg:min-h-0"
           >
             <motion.div
               key={selectedImage.id + "-main"}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, type: "spring" }}
-              className="relative w-full h-full max-h-[400px] sm:max-h-[500px] md:max-h-[600px] lg:max-h-full rounded-[15px] overflow-hidden shadow-2xl"
+              className="relative w-full z-30 h-full max-h-[400px] md:max-h-full sm:max-h-[500px] lg:max-h-full rounded-[20px] overflow-hidden shadow-2xl"
             >
-              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${selectedImage.src})` }}></div>
+              <div
+                className="absolute z-30 flex items-center inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${selectedImage.src})` }}
+              ></div>
+
+              {/*Text Content */}
+              <AnimatePresence mode="sync" initial={false}>
+                <motion.div
+                  key={selectedImage.id + "-content"}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 12 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="relative flex flex-col  h-full  justify-center space-y-3 sm:space-y-4 md:space-y-6 z-50 px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-5 md:py-6 w-full lg:w-[350px] xl:w-[450px] 2xl:w-[500px]"
+                >
+                  <div
+                    className="transition-opacity duration-200"
+                    style={{
+                      opacity: showDetails ? 1 : 0,
+                      visibility: showDetails ? "visible" : "hidden",
+                      pointerEvents: showDetails ? "auto" : "none",
+                    }}
+                  >
+                    <div className="inline-block z-50  pb-2">
+                      <span className="inline-block  px-3 sm:px-4 md:px-5 py-1.5 sm:py-1.5 bg-white backdrop-blur-sm rounded-full text-gray-700 font-medium text-xs sm:text-sm shadow-lg">
+                        {selectedImage.category}
+                      </span>
+                    </div>
+
+                    <h1 className="text-2xl  z-50 sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white leading-tight">
+                      {selectedImage.title}
+                    </h1>
+
+                    <p className="text-sm  z-50 sm:text-base md:text-lg lg:text-[16px] text-white/95 leading-relaxed line-clamp-4 md:line-clamp-none">
+                      {selectedImage.description}
+                    </p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 w-[75%] z-40 bg-gradient-to-r from-black/80 to-transparent " />
             </motion.div>
           </motion.div>
 
@@ -197,7 +198,7 @@ export default function Gallery() {
             </motion.div>
 
             {/* Thumbnails Container - Responsive Grid */}
-            <div className="flex-1 w-full overflow-hidden mb-3 sm:mb-4 md:mb-6">
+            <div className="flex-1 w-full overflow-hidden mb-3 sm:mb-4 md:mb-6  lg:min-h-[35.50rem]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${selectedCategory}-${currentPage}`}
@@ -217,7 +218,7 @@ export default function Gallery() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleImageSelect(image)}
-                        className={`relative w-full h-20 sm:h-24 md:h-32 lg:h-36 xl:h-40 rounded-[15px] overflow-hidden cursor-pointer transition-all active:scale-95 ${
+                        className={`relative w-full h-20 sm:h-24 md:h-32 lg:h-32 xl:h-32 rounded-[6px] overflow-hidden cursor-pointer transition-all active:scale-95 ${
                           selectedImage.id === image.id ? "ring-2 ring-blue-500 shadow-xl" : "ring-0 ring-white/30 hover:ring-white/50 shadow-lg"
                         }`}
                       >
@@ -288,6 +289,16 @@ export default function Gallery() {
                 </svg>
               </motion.button>
             </motion.div>
+
+            <div className="mt-3 sm:mt-4 lg:hidden flex justify-center">
+              <button
+                type="button"
+                onClick={() => setShowDetails((prev) => !prev)}
+                className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-semibold bg-white/80 text-gray-800 shadow-md hover:bg-white transition-colors"
+              >
+                {showDetails ? "Hide Description" : "Show Description"}
+              </button>
+            </div>
           </motion.div>
         </div>
       </section>
