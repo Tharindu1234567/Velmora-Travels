@@ -73,7 +73,9 @@ export default function Footer() {
         {/* Bottom Footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2 ">
           {/* Copyright */}
-          <p className="text-[10px] sm:text-[14px] text-gray-400 text-center sm:text-left font-medium">© 2026 Your Tourpoint. All Rights Reserved.</p>
+          <p className="text-[13px] md:text-[14px] md:mb-0 mb-2 text-gray-400 text-center sm:text-left font-medium">
+            © 2026 Your Tourpoint. All Rights Reserved.
+          </p>
 
           {/* 3D Social Media Icons */}
           <div className="flex items-center gap-4">
