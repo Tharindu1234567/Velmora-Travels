@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { FaShieldAlt, FaStar, FaMapMarkedAlt, FaUserTie, FaArrowRight, FaCheckCircle, FaWhatsapp } from "react-icons/fa";
 import { MdLuggage, MdSupportAgent } from "react-icons/md";
 import { heroData, storyData, highlights, stats, missionVision, values, valuesSectionMeta, team, teamSectionMeta, ctaData } from "@/data/aboutusData";
@@ -53,42 +54,18 @@ export default function AboutUsPage() {
       <Header />
 
       {/* ── 1. HERO BANNER ─────────────────────────────────────── */}
-      <section className="relative h-[55vh]  sm:h-[60vh] md:h-[65vh] w-full flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div
-          className="absolute inset-0 mx-10 rounded-t-[30px] rounded-b-[20px] bg-cover bg-center scale-100"
-          style={{ backgroundImage: `url(${heroData.backgroundImage})` }}
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 mx-10 rounded-t-[30px] rounded-b-[20px] bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
-
-        {/* Text */}
-        <div className="relative z-10 text-center px-4">
-          <motion.p {...fadeUp(0.1)} className="text-[#FFD700] text-xs sm:text-sm tracking-[4px] uppercase font-semibold mb-3">
-            {heroData.brandLabel}
-          </motion.p>
-          <motion.h1 {...fadeUp(0.25)} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-            {heroData.title}
-          </motion.h1>
-          <motion.p {...fadeUp(0.4)} className="mt-4 text-white/70 text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-            {heroData.subtitle}
-          </motion.p>
-
-          {/* Breadcrumb */}
-          <motion.div {...fadeUp(0.5)} className="mt-6 flex items-center justify-center gap-2 text-white/50 text-xs sm:text-sm">
-            <span className="hover:text-white cursor-pointer transition-colors">{heroData.breadcrumb.home}</span>
-            <span>/</span>
-            <span className="text-[#FFD700]">{heroData.breadcrumb.current}</span>
-          </motion.div>
-        </div>
-
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="w-full h-10 sm:h-14">
-            <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="white" />
-          </svg>
-        </div>
-      </section>
+      <PageHero
+        backgroundImage={heroData.backgroundImage}
+        brandLabel={heroData.brandLabel}
+        title={heroData.title}
+        subtitle={heroData.subtitle}
+        breadcrumb={heroData.breadcrumb}
+        stats={[
+          { value: "500+", label: "Happy Travellers" },
+          { value: "10+", label: "Years Experience" },
+          { value: "4.9★", label: "Average Rating" },
+        ]}
+      />
 
       {/* ── 2. OUR STORY ───────────────────────────────────────── */}
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto w-full">
