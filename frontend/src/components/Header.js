@@ -23,7 +23,7 @@ export default function Header() {
         {/* Reduced Height: h-14 sm:h-16 md:h-18 */}
         <div className="relative flex justify-between items-center h-14 sm:h-16 md:h-18">
           {/* LEFT: Logo */}
-          <Link href="/">
+          <Link href="/" aria-label="Go to homepage">
             <motion.div whileHover={{ scale: 1.05 }} className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer text-[#454545]">
               Wanderlust
             </motion.div>
@@ -84,7 +84,7 @@ export default function Header() {
 
             {/* Mobile Hamburger Menu Toggle */}
             <div className="md:hidden flex items-center">
-              <button onClick={() => setIsOpen(true)} className="text-[#454545] focus:outline-none">
+              <button onClick={() => setIsOpen(true)} className="text-[#454545] focus:outline-none" aria-label="Open navigation menu">
                 <FiMenu className="w-6 h-6" />
               </button>
             </div>
@@ -102,7 +102,11 @@ export default function Header() {
             variants={sidebarVariants}
             className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center space-y-8 md:hidden"
           >
-            <button onClick={() => setIsOpen(false)} className="absolute top-4 right-4 text-[#454545] focus:outline-none">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-4 right-4 text-[#454545] focus:outline-none"
+              aria-label="Close navigation menu"
+            >
               <FiX className="w-8 h-8" />
             </button>
 
@@ -111,6 +115,7 @@ export default function Header() {
               return (
                 <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}>
                   <motion.span
+                    tabIndex={-1}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className={`text-2xl font-semibold ${isActive ? "text-[#ff9900]" : "text-[#454545]"}`}

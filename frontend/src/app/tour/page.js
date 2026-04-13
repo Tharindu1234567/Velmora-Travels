@@ -606,6 +606,7 @@ function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
 
               <Link href="/contact">
                 <motion.span
+                  tabIndex={-1}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-sm font-semibold shadow-md shadow-orange-200 cursor-pointer"

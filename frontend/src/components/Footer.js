@@ -28,7 +28,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
           {/* Brand Section */}
           <div className="flex flex-col space-y-4">
-            <Link href="/">
+            <Link href="/" aria-label="Go to homepage">
               <motion.h2
                 whileHover={{ scale: 1.05 }}
                 className="text-4xl text-center md:text-left md:text-5xl font-bold text-gray-900 cursor-pointer tracking-tight"
@@ -73,7 +73,7 @@ export default function Footer() {
         {/* Bottom Footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2 ">
           {/* Copyright */}
-          <p className="text-[13px] md:text-[14px] md:mb-0 mb-2 text-gray-400 text-center sm:text-left font-medium">
+          <p className="text-[13px] md:text-[14px] md:mb-0 mb-2 text-gray-600 text-center sm:text-left font-medium">
             © 2026 Your Tourpoint. All Rights Reserved.
           </p>
 

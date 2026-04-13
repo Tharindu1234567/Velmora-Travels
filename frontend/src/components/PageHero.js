@@ -102,7 +102,7 @@ export default function PageHero({
 
         {/* Breadcrumb */}
         <motion.nav {...fadeUp(0.46)} className="mt-7 flex items-center justify-center gap-2 text-white/45 text-[12px] sm:text-[13px]">
-          <Link href="/" className="hover:text-white transition-colors duration-200">
+          <Link href="/" aria-label="Go to homepage" className="hover:text-white transition-colors duration-200">
             {breadcrumb.home}
           </Link>
           <span className="text-white/25">›</span>
