@@ -25,7 +25,7 @@ export default function Header() {
           {/* LEFT: Logo */}
           <Link href="/" aria-label="Go to homepage">
             <motion.div whileHover={{ scale: 1.05 }} className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer text-[#454545]">
-              Wanderlust
+              Velmora Travels
             </motion.div>
           </Link>
 

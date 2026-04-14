@@ -34,7 +34,7 @@ export default function Footer() {
                 className="text-4xl text-center md:text-left md:text-5xl font-bold text-gray-900 cursor-pointer tracking-tight"
                 style={{ fontFamily: "Brush Script MT, cursive" }}
               >
-                Arrowline
+                Velmora Travels
               </motion.h2>
             </Link>
 
@@ -74,7 +74,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2 ">
           {/* Copyright */}
           <p className="text-[13px] md:text-[14px] md:mb-0 mb-2 text-gray-600 text-center sm:text-left font-medium">
-            © 2026 Your Tourpoint. All Rights Reserved.
+            © 2026 Velmora Travels. All Rights Reserved.
           </p>
 
           {/* 3D Social Media Icons */}

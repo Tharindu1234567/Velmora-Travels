@@ -114,7 +114,7 @@ export default function PackageDetailPage({ params }) {
   const related = packages.filter((p) => p.id !== pkg.id && p.category === pkg.category).slice(0, 3);
 
   return (
-    <main className="flex flex-col min-h-screen bg-white overflow-x-hidden">
+    <main className="relative flex flex-col min-h-screen bg-white overflow-x-hidden">
       <Header />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
@@ -133,13 +133,13 @@ export default function PackageDetailPage({ params }) {
       />
 
       {/* ── BACK LINK ────────────────────────────────────────── */}
-      <div className="px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto w-full mt-8">
+      <div className="absolute top-24 left-0 right-0 z-50 flex justify-end px-4 sm:px-8 md:px-12 lg:px-20">
         <Link href="/packages" aria-label="View all packages">
           <motion.span
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-orange-500 text-[13px] font-semibold transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-orange-600 text-[15px] font-medium transition-colors cursor-pointer"
           >
             <FaChevronLeft className="text-[10px]" /> Back to Packages
           </motion.span>

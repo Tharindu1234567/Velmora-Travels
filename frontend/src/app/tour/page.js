@@ -678,7 +678,7 @@ export default function TourPage() {
       />
 
       {/* ── 2. PLANNER SECTION ───────────────────────────────── */}
-      <section className="py-16 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto w-full">
+      <section className="py-16 sm:py-10 px-4 sm:px-8 md:px-12 lg:px-20 mx-auto w-full">
         {/* Heading */}
         <motion.div {...fadeUp(0.1)} className="text-center mb-10">
           <span className="inline-flex items-center gap-2 text-[#FFD700] text-[11px] tracking-[4px] uppercase font-semibold">

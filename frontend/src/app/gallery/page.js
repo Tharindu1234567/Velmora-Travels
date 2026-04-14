@@ -69,7 +69,7 @@ export default function Gallery() {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Navigation */}
       <Header activeLink="gallery" />
-      <section className="relative h-[calc(100vh-100px)] mt-4 my-[10px] mx-3 sm:mx-4 md:mx-10 rounded-[30px] overflow-hidden overflow-y-auto lg:overflow-y-hidden">
+      <section className="relative h-[calc(100vh-100px)] mb-[10px] lg:mb-10 mx-3 sm:mx-4 md:mx-10 rounded-[30px] overflow-hidden overflow-y-auto lg:overflow-y-hidden">
         {/* Blurred Background - Full Screen */}
         <motion.div
           key={selectedImage.id + "-bg"}
@@ -186,10 +186,10 @@ export default function Gallery() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[10px] sm:text-xs transition-all ${
+                  className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-lg font-medium text-[10px] sm:text-xs transition-all ${
                     selectedCategory === category
-                      ? "bg-blue-500 text-white shadow-lg ring-2 ring-blue-300"
-                      : "bg-white/80 text-gray-700 hover:bg-white"
+                      ? "bg-white/30  border-white text-white shadow-lg"
+                      : "bg-white/10 text-gray-100 hover:text-white "
                   }`}
                 >
                   {category}

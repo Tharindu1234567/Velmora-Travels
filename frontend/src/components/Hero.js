@@ -82,7 +82,7 @@ export default function Hero() {
                     Book a Trip Now
                   </motion.button>
                   <button
-                    className="circle w-9 h-9 bg-white rounded-full ring-0 outline-none flex items-center justify-center text-blue-600 hover:scale-110 transition-transform"
+                    className="circle w-9 h-9 bg-white rounded-full ring-0 outline-none flex items-center justify-center text-orange-500 hover:scale-110 transition-transform"
                     aria-label="Play intro video"
                   >
                     <FaPlay className="ml-1" size={14} />
