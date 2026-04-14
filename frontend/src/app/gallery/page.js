@@ -66,10 +66,10 @@ export default function Gallery() {
   }, [selectedImage, filteredImages, currentPage, imagesPerPage]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col ">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Navigation */}
       <Header activeLink="gallery" />
-      <section className="relative inset-0 mb-5 mx-3 sm:mx-4 md:mx-10  rounded-[30px] overflow-hidden overflow-y-auto lg:overflow-y-hidden">
+      <section className="relative h-[calc(100vh-100px)] mt-4 my-[10px] mx-3 sm:mx-4 md:mx-10 rounded-[30px] overflow-hidden overflow-y-auto lg:overflow-y-hidden">
         {/* Blurred Background - Full Screen */}
         <motion.div
           key={selectedImage.id + "-bg"}
@@ -133,7 +133,7 @@ export default function Gallery() {
                       {selectedImage.title}
                     </h1>
 
-                    <p className="text-sm  z-50 sm:text-base md:text-lg lg:text-[16px] text-white/95 leading-relaxed line-clamp-4 md:line-clamp-none">
+                    <p className="text-sm  z-50 sm:text-base lg:mt-6 md:text-lg lg:text-[16px] text-white/95 leading-relaxed line-clamp-4 md:line-clamp-none">
                       {selectedImage.description}
                     </p>
                   </div>
