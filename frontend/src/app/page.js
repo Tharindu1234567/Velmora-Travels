@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import AboutUs from "@/components/AboutUs";
 import Testimonials from "@/components/Testimonials";
 import HomePackages from "@/components/HomePackages";
+import CTABanner from "@/components/CTABanner";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <AboutUs />
       <Testimonials />
       <HomePackages />
+      <CTABanner />
       <Footer />
     </main>
   );

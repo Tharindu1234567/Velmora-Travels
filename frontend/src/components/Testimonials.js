@@ -38,7 +38,7 @@ export default function Testimonials() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto">
         {/* Section heading */}
         <motion.div {...fadeUp(0.05)} className="text-center mb-12 sm:mb-14">
           <span className="inline-flex items-center gap-2 text-[#FFD700] text-[11px] tracking-[4px] uppercase font-semibold">
@@ -75,7 +75,7 @@ export default function Testimonials() {
           <div className="flex gap-5 sm:gap-6 justify-center items-stretch px-6 sm:px-8">
             {/* Previous preview (desktop only) */}
             <motion.div
-              className="hidden xl:flex flex-col justify-center w-64 shrink-0 bg-white rounded-[22px] p-6 border border-gray-100 shadow-sm opacity-50 scale-95 origin-right cursor-pointer transition-all hover:opacity-70"
+              className="hidden xl:flex flex-col justify-center lg:w-72 xl:w-96 shrink-0 bg-white rounded-[22px] p-6 border border-gray-100 shadow-sm opacity-50 scale-95 origin-right cursor-pointer transition-all hover:opacity-70"
               onClick={prev}
               style={{ transformOrigin: "right center" }}
             >
@@ -98,7 +98,7 @@ export default function Testimonials() {
 
             {/* Next preview (desktop only) */}
             <motion.div
-              className="hidden xl:flex flex-col justify-center w-64 shrink-0 bg-white rounded-[22px] p-6 border border-gray-100 shadow-sm opacity-50 scale-95 origin-left cursor-pointer transition-all hover:opacity-70"
+              className="hidden xl:flex flex-col justify-center lg:w-72 xl:w-96 shrink-0 bg-white rounded-[22px] p-6 border border-gray-100 shadow-sm opacity-50 scale-95 origin-left cursor-pointer transition-all hover:opacity-70"
               onClick={next}
               style={{ transformOrigin: "left center" }}
             >

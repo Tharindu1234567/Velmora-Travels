@@ -6,7 +6,7 @@ import "./AboutUs.css";
 
 const AboutUs = () => {
   return (
-    <div className="about-us min-h-screen">
+    <div className="about-us min-h-screen ">
       {/* Header text and desciption */}
       <motion.div
         className="flex flex-col items-center justify-center text-center max-w-4xl -mt-10 mb-10 mx-auto py-8 px-4"

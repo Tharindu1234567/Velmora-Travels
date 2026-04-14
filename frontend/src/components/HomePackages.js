@@ -112,8 +112,8 @@ export default function HomePackages() {
   const featured = packages.filter((p) => featuredPackageIds.includes(p.id));
 
   return (
-    <section className="py-20 sm:py-24 px-4 sm:px-8 md:px-12 lg:px-20 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20 sm:py-24 lg:py-12 lg:pb-10 px-4 sm:px-8 md:px-12 lg:px-20 bg-white overflow-hidden">
+      <div className=" mx-auto">
         {/* Heading */}
         <motion.div {...fadeUp(0.05)} className="flex flex-col md:flex-row items-start md:items-end justify-between gap-5 mb-12 sm:mb-14">
           <div>
@@ -131,8 +131,9 @@ export default function HomePackages() {
             <p className="mt-3 text-gray-500 text-[14px] sm:text-[15px] max-w-lg leading-relaxed">{featuredPackagesMeta.subheading}</p>
           </div>
 
-          <Link href={featuredPackagesMeta.viewAllHref}>
+          <Link href={featuredPackagesMeta.viewAllHref} aria-label="View all packages">
             <motion.span
+              tabIndex={-1}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-orange-400 text-orange-500 hover:bg-orange-50 font-semibold text-sm transition-colors cursor-pointer shrink-0"
@@ -151,8 +152,9 @@ export default function HomePackages() {
 
         {/* Bottom CTA pill */}
         <motion.div {...fadeUp(0.4)} className="flex justify-center mt-10 sm:mt-12">
-          <Link href="/packages">
+          <Link href="/packages" aria-label="View all packages">
             <motion.span
+              tabIndex={-1}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-sm font-semibold shadow-md shadow-orange-200 cursor-pointer"

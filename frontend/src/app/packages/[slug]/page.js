@@ -114,7 +114,7 @@ export default function PackageDetailPage({ params }) {
   const related = packages.filter((p) => p.id !== pkg.id && p.category === pkg.category).slice(0, 3);
 
   return (
-    <main className="flex flex-col min-h-screen bg-white overflow-x-hidden">
+    <main className="relative flex flex-col min-h-screen bg-white overflow-x-hidden">
       <Header />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
@@ -133,13 +133,13 @@ export default function PackageDetailPage({ params }) {
       />
 
       {/* ── BACK LINK ────────────────────────────────────────── */}
-      <div className="px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto w-full mt-8">
-        <Link href="/packages">
+      <div className="absolute top-24 left-0 right-0 z-50 flex justify-end px-4 sm:px-8 md:px-12 lg:px-20">
+        <Link href="/packages" aria-label="View all packages">
           <motion.span
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-orange-500 text-[13px] font-semibold transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-orange-600 text-[15px] font-medium transition-colors cursor-pointer"
           >
             <FaChevronLeft className="text-[10px]" /> Back to Packages
           </motion.span>
@@ -319,8 +319,9 @@ export default function PackageDetailPage({ params }) {
 
               {/* CTA buttons */}
               <div className="px-6 py-5 flex flex-col gap-3">
-                <Link href="/contact">
+                <Link href="/contact" aria-label="Contact us to book this package">
                   <motion.span
+                    tabIndex={-1}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-sm font-bold shadow-md shadow-orange-200 cursor-pointer"
@@ -328,8 +329,9 @@ export default function PackageDetailPage({ params }) {
                     Book This Package <FaArrowRight className="text-[10px]" />
                   </motion.span>
                 </Link>
-                <a href="https://wa.me/94700000000" target="_blank" rel="noreferrer">
+                <a href="https://wa.me/94700000000" target="_blank" rel="noreferrer" aria-label="Chat with us on WhatsApp">
                   <motion.span
+                    tabIndex={-1}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     className="flex items-center justify-center gap-2 w-full py-3 rounded-full border-2 border-gray-200 text-gray-700 hover:border-green-400 hover:text-green-600 text-sm font-semibold transition-colors cursor-pointer"
@@ -373,7 +375,7 @@ export default function PackageDetailPage({ params }) {
                   You Might Also <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Like</span>
                 </h2>
               </div>
-              <Link href="/packages">
+              <Link href="/packages" aria-label="View all packages">
                 <motion.span
                   whileHover={{ scale: 1.04 }}
                   className="hidden sm:flex items-center gap-2 text-orange-500 hover:text-orange-600 text-[13px] font-semibold transition-colors cursor-pointer"
@@ -412,8 +414,9 @@ export default function PackageDetailPage({ params }) {
           </div>
 
           <div className="relative flex flex-col sm:flex-row gap-3 shrink-0">
-            <Link href="/contact">
+            <Link href="/contact" aria-label="Contact us to book this package">
               <motion.span
+                tabIndex={-1}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-sm font-bold shadow-lg cursor-pointer"
@@ -421,8 +424,9 @@ export default function PackageDetailPage({ params }) {
                 Book Now <FaArrowRight className="text-xs" />
               </motion.span>
             </Link>
-            <a href="https://wa.me/94700000000" target="_blank" rel="noreferrer">
+            <a href="https://wa.me/94700000000" target="_blank" rel="noreferrer" aria-label="Chat with us on WhatsApp">
               <motion.span
+                tabIndex={-1}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center justify-center gap-2 px-7 py-3 rounded-full border border-white/20 text-white text-sm font-semibold hover:bg-white/10 transition-colors cursor-pointer"

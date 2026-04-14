@@ -399,33 +399,25 @@ function SriLankaMap({ selected, onToggle, hovered, setHovered }) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   COST PANEL
+   RIGHT PANELS
 ══════════════════════════════════════════════════════════ */
-function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
-  const [persons, setPersons] = useState(2);
-  const [tier, setTier] = useState("standard");
-  const [meals, setMeals] = useState("breakfast");
-  const [expanded, setExpanded] = useState(false);
-
-  const { total, totalNights, breakdown } = useMemo(() => calcCost(selected, persons, tier, meals), [selected, persons, tier, meals]);
-
+function RoutePanel({ selected, onRemove, onMoveUp, onMoveDown }) {
   return (
-    <div className="flex flex-col gap-4 h-full">
-      {/* Route list */}
-      <div className="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h3 className="font-bold text-gray-900 text-[15px]">Your Route</h3>
-          <span className="text-orange-500 text-xs font-semibold bg-orange-50 px-2.5 py-1 rounded-full">
-            {selected.length} stop{selected.length !== 1 ? "s" : ""}
-          </span>
-        </div>
+    <div className="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col">
+      <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h3 className="font-bold text-gray-900 text-[15px]">Your Route</h3>
+        <span className="text-orange-500 text-xs font-semibold bg-orange-50 px-2.5 py-1 rounded-full">
+          {selected.length} stop{selected.length !== 1 ? "s" : ""}
+        </span>
+      </div>
 
-        {selected.length === 0 ? (
-          <div className="px-5 py-8 text-center">
-            <FaMapMarkerAlt className="text-gray-200 text-3xl mx-auto mb-2" />
-            <p className="text-gray-400 text-sm">Click destinations on the map to start building your route.</p>
-          </div>
-        ) : (
+      {selected.length === 0 ? (
+        <div className="px-5 py-8 text-center flex-1 flex flex-col items-center justify-center">
+          <FaMapMarkerAlt className="text-gray-200 text-3xl mx-auto mb-2" />
+          <p className="text-gray-400 text-sm">Click destinations on the map to start building your route.</p>
+        </div>
+      ) : (
+        <div className="flex-1 min-h-0 overflow-y-auto">
           <ul className="divide-y divide-gray-50">
             {selected.map((dest, i) => {
               const Icon = iconMap[dest.icon] ?? FaMapMarkerAlt;
@@ -438,17 +430,14 @@ function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
                   exit={{ opacity: 0, x: -20 }}
                   className="flex items-center gap-3 px-5 py-3"
                 >
-                  {/* Order badge */}
                   <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 text-white text-[11px] font-bold flex items-center justify-center shrink-0">
                     {i + 1}
                   </div>
 
-                  {/* Icon */}
                   <div className="w-8 h-8 rounded-[8px] bg-orange-50 flex items-center justify-center text-orange-500 shrink-0">
                     <Icon className="text-sm" />
                   </div>
 
-                  {/* Name + meta */}
                   <div className="flex-1 min-w-0">
                     <p className="text-gray-900 font-semibold text-[13px] truncate">{dest.name}</p>
                     <p className="text-gray-400 text-[11px]">
@@ -456,7 +445,6 @@ function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
                     </p>
                   </div>
 
-                  {/* Reorder + remove */}
                   <div className="flex items-center gap-1 shrink-0">
                     <button
                       onClick={() => onMoveUp(i)}
@@ -483,11 +471,22 @@ function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
               );
             })}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
-      {/* Cost Calculator */}
-      <div className="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden">
+function CostEstimatePanel({ selected }) {
+  const [persons, setPersons] = useState(2);
+  const [tier, setTier] = useState("standard");
+  const [meals, setMeals] = useState("breakfast");
+  const [expanded, setExpanded] = useState(false);
+
+  const { total, totalNights, breakdown } = useMemo(() => calcCost(selected, persons, tier, meals), [selected, persons, tier, meals]);
+
+  return (
+    <div className="bg-white rounded-[20px] shadow-sm border border-gray-100 overflow-hidden h-full">
         <div className="px-5 py-4 border-b border-gray-100">
           <h3 className="font-bold text-gray-900 text-[15px]">Cost Estimate</h3>
           <p className="text-gray-400 text-[11px] mt-0.5">All prices in USD · per group</p>
@@ -606,6 +605,7 @@ function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
 
               <Link href="/contact">
                 <motion.span
+                  tabIndex={-1}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-sm font-semibold shadow-md shadow-orange-200 cursor-pointer"
@@ -618,7 +618,6 @@ function CostPanel({ selected, onRemove, onMoveUp, onMoveDown }) {
             <p className="text-center text-gray-400 text-sm py-2">Add destinations to see your cost estimate.</p>
           )}
         </div>
-      </div>
     </div>
   );
 }
@@ -677,7 +676,7 @@ export default function TourPage() {
       />
 
       {/* ── 2. PLANNER SECTION ───────────────────────────────── */}
-      <section className="py-16 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto w-full">
+      <section className="py-16 sm:py-10 px-4 sm:px-8 md:px-12 lg:px-20 mx-auto w-full">
         {/* Heading */}
         <motion.div {...fadeUp(0.1)} className="text-center mb-10">
           <span className="inline-flex items-center gap-2 text-[#FFD700] text-[11px] tracking-[4px] uppercase font-semibold">
@@ -693,104 +692,106 @@ export default function TourPage() {
         </motion.div>
 
         {/* Map + Cost panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 xl:gap-8 items-start">
-          {/* Left: Map */}
-          <motion.div {...scaleIn(0.15)} className="flex flex-col gap-5">
-            {/* Map card */}
-            <div className="bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden p-4 sm:p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-gray-900 text-[15px]">Sri Lanka Map</h3>
-                <span className="text-gray-400 text-xs">Hover to preview · Click to select</span>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 xl:gap-8 items-stretch">
+          {/* Row 1 Left: Map */}
+          <motion.div {...scaleIn(0.15)} className="bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden p-4 sm:p-6 h-full">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-gray-900 text-[15px]">Sri Lanka Map</h3>
+              <span className="text-gray-400 text-xs">Hover to preview · Click to select</span>
+            </div>
+            <SriLankaMap selected={selected} onToggle={toggleDest} hovered={hovered} setHovered={setHovered} />
+          </motion.div>
+
+          {/* Row 1 Right: Route */}
+          <motion.div {...fadeUp(0.2)} className="h-full">
+            <RoutePanel selected={selected} onRemove={removeDest} onMoveUp={moveUp} onMoveDown={moveDown} />
+          </motion.div>
+
+          {/* Row 2 Left: Destinations */}
+          <motion.div {...scaleIn(0.2)} className="bg-white rounded-[24px] shadow-sm border border-gray-100 p-4 sm:p-6 h-full">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-gray-900 text-[15px]">All Destinations</h3>
+              {/* Region filter */}
+              <div className="flex flex-wrap gap-1.5">
+                {regions.map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setActiveRegion(r)}
+                    className={`text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all ${
+                      activeRegion === r
+                        ? "bg-gradient-to-r from-orange-400 to-orange-600 text-white"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                    }`}
+                  >
+                    {r}
+                  </button>
+                ))}
               </div>
-              <SriLankaMap selected={selected} onToggle={toggleDest} hovered={hovered} setHovered={setHovered} />
             </div>
 
-            {/* Destination grid below map */}
-            <div className="bg-white rounded-[24px] shadow-sm border border-gray-100 p-4 sm:p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-gray-900 text-[15px]">All Destinations</h3>
-                {/* Region filter */}
-                <div className="flex flex-wrap gap-1.5">
-                  {regions.map((r) => (
-                    <button
-                      key={r}
-                      onClick={() => setActiveRegion(r)}
-                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all ${
-                        activeRegion === r
-                          ? "bg-gradient-to-r from-orange-400 to-orange-600 text-white"
-                          : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <AnimatePresence mode="popLayout">
+                {filteredDests.map((dest, i) => {
+                  const isSelected = selected.find((d) => d.id === dest.id);
+                  const Icon = iconMap[dest.icon] ?? FaMapMarkerAlt;
+                  const order = selected.findIndex((d) => d.id === dest.id) + 1;
+
+                  return (
+                    <motion.button
+                      key={dest.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.2, delay: i * 0.03 }}
+                      onClick={() => toggleDest(dest)}
+                      onMouseEnter={() => setHovered(dest.id)}
+                      onMouseLeave={() => setHovered(null)}
+                      className={`flex items-center gap-3 p-3.5 rounded-[16px] text-left transition-all border group ${
+                        isSelected
+                          ? "bg-orange-50 border-orange-200 shadow-sm"
+                          : "bg-gray-50 border-gray-100 hover:border-orange-200 hover:bg-orange-50/50"
                       }`}
                     >
-                      {r}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <AnimatePresence mode="popLayout">
-                  {filteredDests.map((dest, i) => {
-                    const isSelected = selected.find((d) => d.id === dest.id);
-                    const Icon = iconMap[dest.icon] ?? FaMapMarkerAlt;
-                    const order = selected.findIndex((d) => d.id === dest.id) + 1;
-
-                    return (
-                      <motion.button
-                        key={dest.id}
-                        layout
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.2, delay: i * 0.03 }}
-                        onClick={() => toggleDest(dest)}
-                        onMouseEnter={() => setHovered(dest.id)}
-                        onMouseLeave={() => setHovered(null)}
-                        className={`flex items-center gap-3 p-3.5 rounded-[16px] text-left transition-all border group ${
+                      {/* Icon */}
+                      <div
+                        className={`w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-all ${
                           isSelected
-                            ? "bg-orange-50 border-orange-200 shadow-sm"
-                            : "bg-gray-50 border-gray-100 hover:border-orange-200 hover:bg-orange-50/50"
+                            ? "bg-gradient-to-br from-orange-400 to-orange-600 text-white"
+                            : "bg-white text-orange-400 group-hover:bg-orange-100"
                         }`}
                       >
-                        {/* Icon */}
-                        <div
-                          className={`w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-all ${
-                            isSelected
-                              ? "bg-gradient-to-br from-orange-400 to-orange-600 text-white"
-                              : "bg-white text-orange-400 group-hover:bg-orange-100"
-                          }`}
-                        >
-                          <Icon className="text-base" />
-                        </div>
+                        <Icon className="text-base" />
+                      </div>
 
-                        {/* Text */}
-                        <div className="flex-1 min-w-0">
-                          <p className={`font-semibold text-[13px] truncate ${isSelected ? "text-orange-700" : "text-gray-900"}`}>{dest.name}</p>
-                          <p className="text-gray-400 text-[11px]">
-                            {dest.nights}n · ${dest.pricePerNight}/night
-                          </p>
-                        </div>
+                      {/* Text */}
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-semibold text-[13px] truncate ${isSelected ? "text-orange-700" : "text-gray-900"}`}>{dest.name}</p>
+                        <p className="text-gray-400 text-[11px]">
+                          {dest.nights}n · ${dest.pricePerNight}/night
+                        </p>
+                      </div>
 
-                        {/* Check / number */}
-                        <div
-                          className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold transition-all ${
-                            isSelected
-                              ? "bg-gradient-to-br from-orange-400 to-orange-600 text-white"
-                              : "bg-white border border-gray-200 text-gray-300"
-                          }`}
-                        >
-                          {isSelected ? order : "+"}
-                        </div>
-                      </motion.button>
-                    );
-                  })}
-                </AnimatePresence>
-              </div>
+                      {/* Check / number */}
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold transition-all ${
+                          isSelected
+                            ? "bg-gradient-to-br from-orange-400 to-orange-600 text-white"
+                            : "bg-white border border-gray-200 text-gray-300"
+                        }`}
+                      >
+                        {isSelected ? order : "+"}
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </AnimatePresence>
             </div>
           </motion.div>
 
-          {/* Right: Cost panel (sticky on desktop) */}
-          <motion.div {...fadeUp(0.2)} className="lg:sticky lg:top-6">
-            <CostPanel selected={selected} onRemove={removeDest} onMoveUp={moveUp} onMoveDown={moveDown} />
+          {/* Row 2 Right: Cost Estimate */}
+          <motion.div {...fadeUp(0.25)} className="h-full">
+            <CostEstimatePanel selected={selected} />
           </motion.div>
         </div>
       </section>

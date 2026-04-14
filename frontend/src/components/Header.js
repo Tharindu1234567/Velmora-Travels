@@ -18,22 +18,14 @@ export default function Header() {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="w-full z-50 bg-white shadow-sm"
-    >
+    <motion.nav initial={{ y: -100 }} animate={{ y: 0 }} className="w-full z-50 bg-white shadow-sm">
       <div className="mx-2 sm:mx-4 md:mx-[10px] px-3 sm:px-4 md:px-6 lg:px-8">
         {/* Reduced Height: h-14 sm:h-16 md:h-18 */}
         <div className="relative flex justify-between items-center h-14 sm:h-16 md:h-18">
-          
           {/* LEFT: Logo */}
-          <Link href="/">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer text-[#454545]"
-            >
-              Wanderlust
+          <Link href="/" aria-label="Go to homepage">
+            <motion.div whileHover={{ scale: 1.05 }} className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer text-[#454545]">
+              Velmora Travels
             </motion.div>
           </Link>
 
@@ -50,7 +42,7 @@ export default function Header() {
                   >
                     <span
                       className={`font-medium text-xs lg:text-sm transition-colors relative z-10 ${
-                        isActive ? "text-[#FFD700]" : "text-[#454545] hover:text-[#FFD700]"
+                        isActive ? "text-[#ff9900]" : "text-[#454545] hover:text-[#ff9900]"
                       }`}
                     >
                       {link.name}
@@ -59,7 +51,7 @@ export default function Header() {
                     {isActive && (
                       <motion.div
                         layoutId="active-underline"
-                        className="absolute left-0 right-0 bottom-0 h-[2px] bg-[#FFD700]"
+                        className="absolute left-0 right-0 bottom-0 h-[2px] bg-[#ff9900]"
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
@@ -70,7 +62,7 @@ export default function Header() {
                         initial={{ scaleX: 0 }}
                         animate={{ scaleX: 1 }}
                         exit={{ scaleX: 0 }}
-                        className="absolute left-0 right-0 bottom-0 h-[2px] bg-[#FFD700] origin-left"
+                        className="absolute left-0 right-0 bottom-0 h-[2px] bg-[#ff9900] origin-left"
                       />
                     )}
                   </div>
@@ -81,7 +73,6 @@ export default function Header() {
 
           {/* RIGHT: Button & Mobile Toggle */}
           <div className="flex items-center space-x-4">
-            
             {/* Desktop Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -93,15 +84,11 @@ export default function Header() {
 
             {/* Mobile Hamburger Menu Toggle */}
             <div className="md:hidden flex items-center">
-              <button
-                onClick={() => setIsOpen(true)}
-                className="text-[#454545] focus:outline-none"
-              >
+              <button onClick={() => setIsOpen(true)} className="text-[#454545] focus:outline-none" aria-label="Open navigation menu">
                 <FiMenu className="w-6 h-6" />
               </button>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -118,6 +105,7 @@ export default function Header() {
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-4 right-4 text-[#454545] focus:outline-none"
+              aria-label="Close navigation menu"
             >
               <FiX className="w-8 h-8" />
             </button>
@@ -125,17 +113,12 @@ export default function Header() {
             {links.map((link) => {
               const isActive = pathname === link.href;
               return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                >
+                <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}>
                   <motion.span
+                    tabIndex={-1}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`text-2xl font-semibold ${
-                      isActive ? "text-[#FFD700]" : "text-[#454545]"
-                    }`}
+                    className={`text-2xl font-semibold ${isActive ? "text-[#ff9900]" : "text-[#454545]"}`}
                   >
                     {link.name}
                   </motion.span>
